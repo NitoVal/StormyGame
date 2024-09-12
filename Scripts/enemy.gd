@@ -5,7 +5,7 @@ var health: int = 1
 
 
 # Called when the enemy takes damage
-func take_damage(damage: int) -> void:
+func _take_damage(damage: int) -> void:
     health -= damage
     if health <= 0:
         die()
@@ -13,3 +13,8 @@ func take_damage(damage: int) -> void:
 # Handle enemy death
 func die() -> void:
     queue_free()  # Remove the enemy from the scene
+
+
+func _on_area_3d_area_entered(area: Area3D) -> void:
+    
+    queue_free()

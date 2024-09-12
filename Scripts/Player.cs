@@ -16,7 +16,6 @@ public partial class Player : CharacterBody3D
 	private double _dashTimeLeft;
 	private double _dashCooldownTimeLeft;
 	private Vector3 _dashDirection = Vector3.Zero;
-	public const float ShootingSpeedMultiplier = 0.5f;
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
@@ -63,7 +62,7 @@ public partial class Player : CharacterBody3D
 		Velocity = velocity;
 		MoveAndSlide();
 
-		Vector3 targetPosition = new Vector3(Position.X, 15f, Position.Z);
+		Vector3 targetPosition = new Vector3(Position.X, 15f, Position.Z + 7.5f);
 		Camera.GlobalTransform = new Transform3D(Camera.GlobalTransform.Basis, Camera.GlobalTransform.Origin.Lerp(targetPosition, 0.1f)  // Smooth follow
 		);
 	}
