@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://cphl45cl0fokc"]
+[gd_scene load_steps=37 format=4 uid="uid://cphl45cl0fokc"]
 
 [ext_resource type="Texture2D" uid="uid://bn8wfhbs1omgo" path="res://textures/grids/Dark/texture_08.png" id="1_e7t0y"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_xwgw0"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dmxmgw3rh0ym2" path="res://textures/grids/Purple/texture_01.png" id="5_68pnq"]
 [ext_resource type="PackedScene" uid="uid://cap2rrm76yldo" path="res://Scenes/Bullet.tscn" id="6_6yfmn"]
 [ext_resource type="Script" path="res://Scripts/WeaponController.gd" id="6_c68b7"]
+[ext_resource type="Shader" path="res://Outline.gdshader" id="9_lqijx"]
 [ext_resource type="PackedScene" uid="uid://c0irn1qhp3rls" path="res://Scenes/Enemy.tscn" id="11_p6h4h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6adew"]
@@ -39,6 +40,12 @@ albedo_texture = ExtResource("3_vngbn")
 albedo_texture = ExtResource("5_68pnq")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d4h8n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ss3hg"]
+render_priority = 0
+shader = ExtResource("9_lqijx")
+shader_parameter/outline_color = Color(0, 1, 0, 1)
+shader_parameter/outline_width = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbxyg"]
 resource_name = "Material.011"
@@ -6924,6 +6931,7 @@ bones/111/rotation = Quaternion(0, 0, 0, 1)
 bones/111/scale = Vector3(1, 1, 1)
 
 [node name="Wizard_002" type="MeshInstance3D" parent="Player/Mage/Armature_002/Skeleton3D"]
+material_overlay = SubResource("ShaderMaterial_ss3hg")
 mesh = SubResource("ArrayMesh_qbulo")
 skin = SubResource("Skin_33ryh")
 
