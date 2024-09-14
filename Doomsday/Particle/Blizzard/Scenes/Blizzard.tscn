@@ -1,0 +1,104 @@
+[gd_scene load_steps=14 format=3 uid="uid://xvksvgljtiw1"]
+
+[ext_resource type="Texture2D" uid="uid://beaxrqghje7l" path="res://Blizzard/Images/pngimg.com - smoke_PNG966.png" id="1_8lqrj"]
+[ext_resource type="Texture2D" uid="uid://b4hkrcxjjb3a1" path="res://Blizzard/Images/ground_tiles_with_snow_01_2k/ground_tiles_with_snow_01_color_2k.png" id="2_bicpc"]
+[ext_resource type="Texture2D" uid="uid://dk7fwrf6o15xa" path="res://Blizzard/Images/ground_tiles_with_snow_01_2k/ground_tiles_with_snow_01_normal_gl_2k.png" id="3_w3g55"]
+
+[sub_resource type="Curve" id="Curve_j55n5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.653509, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_iicga"]
+curve = SubResource("Curve_j55n5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nyi8l"]
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(10, 0, 10)
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 7.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, -1, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = 10.0
+tangential_accel_min = 30.91
+tangential_accel_max = 100.0
+scale_min = 0.4
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_iicga")
+turbulence_noise_scale = 2.657
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k56f6"]
+transparency = 1
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_8lqrj")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_gkf32"]
+material = SubResource("StandardMaterial3D_k56f6")
+shape = 0
+size = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihkbv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_g6u2o"]
+material = SubResource("StandardMaterial3D_ihkbv")
+size = Vector3(2, 1, 2)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_auait"]
+sky_top_color = Color(0.624, 0.697333, 0.8, 1)
+sky_energy_multiplier = 1.51
+ground_bottom_color = Color(1, 1, 1, 1)
+ground_curve = 0.0459481
+sun_angle_max = 118.57
+
+[sub_resource type="Sky" id="Sky_0bofs"]
+sky_material = SubResource("ProceduralSkyMaterial_auait")
+
+[sub_resource type="Environment" id="Environment_xjio1"]
+background_mode = 2
+sky = SubResource("Sky_0bofs")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+fog_enabled = true
+fog_light_color = Color(0.744356, 0.769036, 0.807818, 1)
+volumetric_fog_emission = Color(0.76, 0.76, 0.76, 1)
+
+[node name="Blizzard" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(6.17931, 0, 0, 0, 8.58762, 0, 0, 0, 4.30946, 0, 12.9985, 0)
+cast_shadow = 0
+amount = 5000
+speed_scale = 1.5
+randomness = 1.0
+visibility_aabb = AABB(-4, -8, -4, 8, 8, 8)
+trail_enabled = true
+trail_lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_nyi8l")
+draw_pass_1 = SubResource("RibbonTrailMesh_gkf32")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(66.9135, 0, 0, 0, 0.215187, 0, 0, 0, 55.5704, 0, -39.6739, 0)
+mesh = SubResource("BoxMesh_g6u2o")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="CSGMesh3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00122071, -0.403702, -0.0183106)
+size = Vector3(1.03271, 2, 1.05615)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xjio1")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52657, -37.6593, 1.45706)
+size = Vector3(2, 7.34814, 2)
+texture_albedo = ExtResource("2_bicpc")
+texture_normal = ExtResource("3_w3g55")
