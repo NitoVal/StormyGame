@@ -17,5 +17,3 @@ func die() -> void:
 func _on_area_3d_area_entered(area: Area3D) -> void:
     if area.is_in_group("Player"):
         get_tree().call_group("Player", "_take_damage")
-    else:
-        print(area.name)

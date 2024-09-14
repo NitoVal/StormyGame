@@ -13,6 +13,7 @@ var _is_dashing: bool = false
 var _dash_time_left: float = 0.0
 var _dash_cooldown_time_left: float = 0.0
 var _dash_direction: Vector3 = Vector3.ZERO
+var _hp : int = 3;
 
 func _physics_process(delta: float) -> void:
     # Add the gravity.
@@ -58,4 +59,6 @@ func _play_animation(animation_name : String) -> void :
         animation_player.play(animation_name)
         
 func _take_damage() -> void:
-    print("ouch")
+    _hp -= 1
+    if _hp <= 0:
+        queue_free()

@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
     ray_query.collide_with_areas = true
     var raycast_result = space.intersect_ray(ray_query)
     
-    if not raycast_result.is_empty():
+    if not raycast_result.is_empty() and $PlayerBody:
         var pos = raycast_result.position
         var look_at_me = Vector3(pos.x, $PlayerBody.position.y, pos.z)
         $PlayerBody.look_at(look_at_me, Vector3.UP)
