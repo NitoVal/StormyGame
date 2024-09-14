@@ -18,5 +18,5 @@ func _process(delta: float) -> void:
     
     if not raycast_result.is_empty():
         var pos = raycast_result.position
-        var look_at_me = Vector3(pos.x, $Player.position.y, pos.z)
-        $Player.look_at(look_at_me, Vector3.UP)
+        var look_at_me = Vector3(pos.x, $PlayerBody.position.y, pos.z)
+        $PlayerBody.look_at(look_at_me, Vector3.UP)

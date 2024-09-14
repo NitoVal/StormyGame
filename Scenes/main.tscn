@@ -4,10 +4,10 @@
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_xwgw0"]
 [ext_resource type="Texture2D" uid="uid://cucgybt6ybemg" path="res://textures/grids/Orange/texture_01.png" id="2_qg0ia"]
 [ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://textures/grids/Green/texture_01.png" id="3_vngbn"]
-[ext_resource type="Script" path="res://Scripts/Player.cs" id="4_s2nsr"]
 [ext_resource type="Texture2D" uid="uid://dmxmgw3rh0ym2" path="res://textures/grids/Purple/texture_01.png" id="5_68pnq"]
 [ext_resource type="PackedScene" uid="uid://cap2rrm76yldo" path="res://Scenes/Bullet.tscn" id="6_6yfmn"]
 [ext_resource type="Script" path="res://Scripts/WeaponController.gd" id="6_c68b7"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="6_e1f88"]
 [ext_resource type="Shader" path="res://Outline.gdshader" id="9_lqijx"]
 [ext_resource type="PackedScene" uid="uid://c0irn1qhp3rls" path="res://Scenes/Enemy.tscn" id="11_p6h4h"]
 
@@ -6129,16 +6129,16 @@ material_override = SubResource("StandardMaterial3D_l1e44")
 use_collision = true
 size = Vector3(3, 2, 2)
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Camera", "AnimationPlayer")]
+[node name="PlayerBody" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "animation_player") groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("4_s2nsr")
-Camera = NodePath("../Camera3D")
-AnimationPlayer = NodePath("Mage/AnimationPlayer")
+script = ExtResource("6_e1f88")
+camera = NodePath("../Camera3D")
+animation_player = NodePath("Mage/AnimationPlayer")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerBody"]
 shape = SubResource("CapsuleShape3D_d4h8n")
 
-[node name="Firepoint" type="Node3D" parent="Player" node_paths=PackedStringArray("root_node", "shoot_position")]
+[node name="Firepoint" type="Node3D" parent="PlayerBody" node_paths=PackedStringArray("root_node", "shoot_position")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -1.3)
 script = ExtResource("6_c68b7")
 bullet_prefab = ExtResource("6_6yfmn")
@@ -6146,12 +6146,12 @@ root_node = NodePath("../..")
 shoot_position = NodePath(".")
 fire_rate = 0.5
 
-[node name="Mage" type="Node3D" parent="Player"]
+[node name="Mage" type="Node3D" parent="PlayerBody"]
 transform = Transform3D(-0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0, -1, 0)
 
-[node name="Armature_002" type="Node3D" parent="Player/Mage"]
+[node name="Armature_002" type="Node3D" parent="PlayerBody/Mage"]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="Player/Mage/Armature_002"]
+[node name="Skeleton3D" type="Skeleton3D" parent="PlayerBody/Mage/Armature_002"]
 bones/0/name = "mixamorig_Hips"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, -5.77886e-24, 5.55111e-16, -4.88379e-23, 1, 9.83888e-08, -5.55111e-16, -9.83888e-08, 1, 0.00674464, 1.40726, -0.022285)
@@ -6937,96 +6937,98 @@ bones/111/position = Vector3(-0.323907, 0.606103, 1.11013)
 bones/111/rotation = Quaternion(0, 0, 0, 1)
 bones/111/scale = Vector3(1, 1, 1)
 
-[node name="Wizard_002" type="MeshInstance3D" parent="Player/Mage/Armature_002/Skeleton3D"]
+[node name="Wizard_002" type="MeshInstance3D" parent="PlayerBody/Mage/Armature_002/Skeleton3D"]
 material_overlay = SubResource("ShaderMaterial_ss3hg")
 mesh = SubResource("ArrayMesh_qbulo")
 skin = SubResource("Skin_33ryh")
 
-[node name="cs_grp" type="Node3D" parent="Player/Mage"]
+[node name="cs_grp" type="Node3D" parent="PlayerBody/Mage"]
 
-[node name="cs_arm_fk" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_arm_fk" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.822094, 0, 0, 0, 0.822094, 0, 0, 0, 0.822094, 1.5, 8.5, 0)
 
-[node name="cs_calf_fk" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_calf_fk" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.822094, 0, 0, 0, 0.822094, 0, 0, 0, 0.822094, 0.5, 8.5, 0)
 
-[node name="cs_circle" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_circle" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.205524, 0, 0, 0, 0.205524, 0, 0, 0, 0.205524, 0.5, 4.5, 0)
 
-[node name="cs_circle_001" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_circle_001" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.205524, 0, 0, 0, 0.205524, 0, 0, 0, 0.205524, 0.5, 4.5, 0)
 
-[node name="cs_circle_025" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_circle_025" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.205524, 0, 0, 0, 0.205524, 0, 0, 0, 0.205524, 2.5, 4.5, 0)
 
-[node name="cs_foot" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_foot" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.308246, 0, 0, 0, -0.308246, 1.00439e-07, 0, -1.00439e-07, -0.308246, 0.5, 10.5, 0)
 
-[node name="cs_foot_001" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_foot_001" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.308246, 0, 0, 0, -0.308246, 1.00439e-07, 0, -1.00439e-07, -0.308246, 0.5, 10.5, 0)
 
-[node name="cs_foot_002" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_foot_002" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.308246, 0, 0, 0, -0.308246, 1.00439e-07, 0, -1.00439e-07, -0.308246, 0.5, 10.5, 0)
 
-[node name="cs_foot_01" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_foot_01" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0, 0, 2.18646, 0, 2.18646, 0, -2.18646, 0, 0, 0.5, 18.5, 0)
 
-[node name="cs_foot_roll" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_foot_roll" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.591582, 0, 0, 0, 0.591582, 0, 0, 0, 0.591582, 0.5, 12.5, 0)
 
-[node name="cs_forearm_fk" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_forearm_fk" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.822094, 0, 0, 0, 0.822094, 0, 0, 0, 0.822094, 2.5, 8.5, 0)
 
-[node name="cs_hand" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_hand" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.308246, 0, 0, 0, -0.308246, 1.00439e-07, 0, -1.00439e-07, -0.308246, 0.5, 19.5, 0)
 
-[node name="cs_head" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_head" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.205524, 0, 0, 0, 0.205524, 0, 0, 0, 0.205524, 0.5, 13.5, 0)
 
-[node name="cs_hips" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_hips" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.205524, 0, 0, 0, 0.205524, 0, 0, 0, 0.205524, 0.5, 11.5, 0)
 
-[node name="cs_master" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_master" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.5, 17.5, 0)
 
-[node name="cs_neck" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_neck" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.205524, 0, 0, 0, 0.205524, 0, 0, 0, 0.205524, 0.5, 14.5, 0)
 
-[node name="cs_shoulder_left" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_shoulder_left" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0, -2.92972e-07, -1.03843, 2.92972e-07, -1.03843, 2.92972e-07, -1.03843, -2.92972e-07, 8.26563e-14, 0.5, 15.5, 0)
 
-[node name="cs_shoulder_right" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_shoulder_right" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0, -2.92972e-07, -1.03843, 2.92972e-07, -1.03843, 2.92972e-07, -1.03843, -2.92972e-07, 8.26563e-14, 0.5, 16.5, 0)
 
-[node name="cs_sphere" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_sphere" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.205524, 0, 0, 0, 0.205524, 0, 0, 0, 0.205524, 0.5, 2.5, 0)
 
-[node name="cs_sphere_012" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_sphere_012" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.205524, 0, 0, 0, 0.205524, 0, 0, 0, 0.205524, 3.5, 2.5, 0)
 
-[node name="cs_square" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_square" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.154123, 0, 0, 0, -0.154123, 5.02197e-08, 0, -5.02197e-08, -0.154123, 1.5, 1.4967, 0)
 
-[node name="cs_square_2" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_square_2" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.154123, 0, 0, 0, -0.154123, 5.02197e-08, 0, -5.02197e-08, -0.154123, 0.5, 1.4967, 0)
 
-[node name="cs_thigh_fk" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_thigh_fk" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.822094, 0, 0, 0, 0.822094, 0, 0, 0, 0.822094, 0.5, 7.5, 0)
 
-[node name="cs_toe" type="Node3D" parent="Player/Mage/cs_grp"]
+[node name="cs_toe" type="Node3D" parent="PlayerBody/Mage/cs_grp"]
 transform = Transform3D(0.429261, 0, 0, 0, 0.429261, 0, 0, 0, 0.429261, 0.5, 9.5, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Mage"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerBody/Mage"]
 libraries = {
 "PlayerLibrary": SubResource("AnimationLibrary_do5bg")
 }
 speed_scale = 2.0
 
-[node name="Area3D" type="Area3D" parent="Player"]
+[node name="PlayerArea3D" type="Area3D" parent="PlayerBody" groups=["Player"]]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerBody/PlayerArea3D"]
 shape = SubResource("CapsuleShape3D_4jjpx")
 
 [node name="Enemy" parent="." instance=ExtResource("11_p6h4h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8401, 0.597678, -14.9977)
+
+[connection signal="body_entered" from="PlayerBody/PlayerArea3D" to="." method="_on_area_3d_body_entered"]
