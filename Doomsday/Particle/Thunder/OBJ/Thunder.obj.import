@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ci5em2bs0p0po"
+path="res://.godot/imported/Thunder.obj-fa98cfcc8b28f09104506854babf4f3f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Thunder.obj-fa98cfcc8b28f09104506854babf4f3f.mesh"]
+
+source_file="res://Thunder/OBJ/Thunder.obj"
+dest_files=["res://.godot/imported/Thunder.obj-fa98cfcc8b28f09104506854babf4f3f.mesh", "res://.godot/imported/Thunder.obj-fa98cfcc8b28f09104506854babf4f3f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
