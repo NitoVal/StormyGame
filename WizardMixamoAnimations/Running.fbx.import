@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dq2mdmji1oaah"
-path="res://.godot/imported/Wizard1.fbx-ffa3f3681e79e488745180a8564786f8.scn"
+uid="uid://dxdlxepak0jhc"
+path="res://.godot/imported/Running.fbx-0c3eaab5c1bf3541fe2f2df952e727c9.scn"
 
 [deps]
 
-source_file="res://models/Wizard1.fbx"
-dest_files=["res://.godot/imported/Wizard1.fbx-ffa3f3681e79e488745180a8564786f8.scn"]
+source_file="res://WizardMixamoAnimations/Running.fbx"
+dest_files=["res://.godot/imported/Running.fbx-0c3eaab5c1bf3541fe2f2df952e727c9.scn"]
 
 [params]
 
